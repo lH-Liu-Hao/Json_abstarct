@@ -1,7 +1,5 @@
-import re
-import json
-from JSON_ABSTRACT.default import TITLE_KEYS
-from JSON_ABSTRACT.abstract.Common_abstract import Common_abstract
+from ..default import TITLE_KEYS
+from ..abstract.Common_abstract import Common_abstract
 
 class GetTitle(Common_abstract):
     def __init__(self,tit_key_exp,title_key='',tit_re_rule=''):

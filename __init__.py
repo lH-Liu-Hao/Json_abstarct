@@ -1,4 +1,4 @@
-from JSON_ABSTRACT.abstract import Clean_json_text,GetContent,GetTitle,GetTime
+from .abstract import Clean_json_text,GetContent,GetTitle,GetTime
 
 class Json_abstract():
     def __init__(self):

@@ -56,7 +56,7 @@ test_text = {
     "creattime":"2012-03-02 10:10:10"
 }
 
-from JSON_ABSTRACT import Json_abstract
+from . import Json_abstract
 
 abstract = Json_abstract()
 

@@ -1,11 +1,10 @@
 import re
-import json
 import time
 import string
 import datetime
 from dateutil.parser import parse
-from JSON_ABSTRACT.default import TIME_KEYS,ALL_DATETIME_PATTERN_DICT,Month_Less_To_Full
-from JSON_ABSTRACT.abstract.Common_abstract import Common_abstract
+from ..default import TIME_KEYS,ALL_DATETIME_PATTERN_DICT,Month_Less_To_Full
+from ..abstract.Common_abstract import Common_abstract
 
 
 class GetTime(Common_abstract):

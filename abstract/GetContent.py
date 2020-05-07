@@ -1,9 +1,7 @@
 import re
-import json
-import html as _html
 from lxml import etree
-from JSON_ABSTRACT.default import CONTENT_KEYS,USELESS_TAG,CLEAN_TAG
-from JSON_ABSTRACT.abstract.Common_abstract import Common_abstract
+from ..default import CONTENT_KEYS,USELESS_TAG,CLEAN_TAG
+from ..abstract.Common_abstract import Common_abstract
 
 
 
