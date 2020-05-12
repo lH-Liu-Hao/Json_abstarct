@@ -24,6 +24,7 @@ class GetTime(Common_abstract):
                 dt = time.strftime("%Y-%m-%d %H:%M:%S", time_local)
             elif len(time_text) > 13:
                 dt = parse(time_text)
+                dt = dt.strftime("%Y-%m-%d %H:%M:%S")
             else:
                 dt = ''
             return dt
@@ -42,7 +43,7 @@ class GetTime(Common_abstract):
                 if date_format[0] in string.ascii_lowercase:
                     format = date_format[1:]
                     if ''.join([i if i in time_text else '' for i in ['前', '昨', '内', '刚刚', '今']]):
-                        delta_word = re.findall("\D+", time_text)[0]  # 获取表达式中的文字 如前天
+                        delta_word = re.findall("\D+", time_text)[0].strip()  # 获取表达式中的文字 如前天
                         if '时' in time_text and '分' in time_text:  # 判断时和分是否同时存在，存在则表示是今天 20时30分这种格式，将时和分替换为:，否则则是3分钟前这种格式,保持原样
                             sub_second_time = re.sub('秒', '', time_text)
                             last_time_text = re.sub('时|分', ':', sub_second_time)
@@ -76,8 +77,13 @@ class GetTime(Common_abstract):
                                 "天内": delta_num * 24 * 60 * 60,
                                 "秒前": delta_num,
                                 "秒钟前": delta_num,
+                                "秒鐘前": delta_num,
                                 "分钟前": delta_num * 60,
+                                "分鐘前": delta_num * 60,
+                                'minutes ago':delta_num * 60,
                                 "小时前": delta_num * 60 * 60,
+                                "小時前": delta_num * 60 * 60,
+                                'hour ago':delta_num * 60 * 60,
                                 "天前": delta_num * 24 * 60 * 60,
                                 '前天': 2 * 24 * 60 * 60,
                                 '昨天': 24 * 60 * 60,
@@ -104,7 +110,10 @@ class GetTime(Common_abstract):
                         sub_day_time = re.sub('日 |日', ' ', sub_hour_minute_time, 1)
                     currentYear = datetime.datetime.now().year
                     if len_gang == 1:
-                        add_year_time = f'{currentYear}-{sub_day_time}'
+                        if not re.search('\d{4}', sub_day_time):  #姑且通过判断是否有连续四个数字来判断是否有年份
+                            add_year_time = f'{currentYear}-{sub_day_time}'
+                        else:
+                            add_year_time = sub_day_time
                         # 比较转换的时间是否大于当前的时间
                         currentTime = int(time.time())
                         data_sj = time.strptime(add_year_time, format)  # 定义格式
@@ -138,6 +147,24 @@ class GetTime(Common_abstract):
                 return article_data
             except:
                 return
+
+    # #默认键抽取
+    def default_key_abstract(self):
+        values= list()
+        for key,value in self.text_dict.items():
+            if key in self.KEYS and (isinstance(value,str) or isinstance(value,int)):
+                self.value = value
+            elif isinstance(value,dict):
+                for n_key,n_value in value.items():
+                    if n_key in self.KEYS and (isinstance(n_value,str) or isinstance(n_value,int)):
+                        self.value = n_value
+                        break
+            values.append(self.value)
+        new_val = ""
+        for val in values:
+            if len(str(val)) > len(str(new_val)):
+                new_val = val
+        self.value = new_val
 
     def abstract(self,JSONTEXT):
         self.text_dict = JSONTEXT

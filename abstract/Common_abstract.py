@@ -12,13 +12,22 @@ class Common_abstract():
 
     # #默认键抽取
     def default_key_abstract(self):
+        values= list()
         for key,value in self.text_dict.items():
-            if key in self.KEYS  and isinstance(value,str):
+            if key in self.KEYS and isinstance(value,str):
                 self.value = value
             elif isinstance(value,dict):
                 for n_key,n_value in value.items():
-                    if n_key in self.KEYS  and isinstance(n_value,str):
-                        self.value = value
+                    if n_key in self.KEYS and isinstance(n_value,str):
+                        self.value = n_value
+                        break
+            values.append(self.value)
+        new_val = ""
+        for val in values:
+            if len(val) > len(new_val):
+                new_val = val
+        self.value = new_val
+
 
     # 正则抽取
     def re_abstrat(self):

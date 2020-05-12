@@ -1,12 +1,26 @@
 
 
-CONTENT_KEYS = ['content','Content','description','text']
+CONTENT_KEYS = ['content','Content','description','text','html']
 
 TITLE_KEYS = ['title','Title','topic','Topic']
 
-TIME_KEYS = ['creattime','CreatTime','publishtime','PublishTime','publish_time',
-             'UpdateTime','updateTime','updatetime','startTime','StartTime','newsTime','ctime']
+TIME_KEYS = ['createtime','createTime','Createtime','CreateTime','publishtime','PublishTime','publish_time',
+             'UpdateTime','updateTime','updatetime','startTime','StartTime','newsTime','ctime','time']
 
+AUTHOR_KEYS = ['author','Author',]
+
+FROM_KEYS = ['source','Source','From','from','value_name']
+
+AUTHOR_RE_RULES = [
+            "责编[：|:| |丨|/]\s*([\u4E00-\u9FA5a-zA-Z]{2,20})[^\u4E00-\u9FA5|:|：]",
+            "责任编辑[：|:| |丨|/]\s*([\u4E00-\u9FA5a-zA-Z]{2,20})[^\u4E00-\u9FA5|:|：]",
+            "作者[：|:| |丨|/]\s*([\u4E00-\u9FA5a-zA-Z]{2,20})[^\u4E00-\u9FA5|:|：]",
+            "编辑[：|:| |丨|/]\s*([\u4E00-\u9FA5a-zA-Z]{2,20})[^\u4E00-\u9FA5|:|：]",
+            "文[：|:| |丨|/]\s*([\u4E00-\u9FA5a-zA-Z]{2,20})[^\u4E00-\u9FA5|:|：]",
+            "原创[：|:| |丨|/]\s*([\u4E00-\u9FA5a-zA-Z]{2,20})[^\u4E00-\u9FA5|:|：]",
+            "撰文[：|:| |丨|/]\s*([\u4E00-\u9FA5a-zA-Z]{2,20})[^\u4E00-\u9FA5|:|：]",
+            "来源[：|:| |丨|/]\s*([\u4E00-\u9FA5a-zA-Z]{2,20})[^\u4E00-\u9FA5|:|：|<]"
+]
 
 USELESS_TAG = ['style','script']
 
@@ -40,17 +54,20 @@ ALL_DATETIME_PATTERN_DICT = {
     "B%Y-%m-%d":"(\d{1,2}[-|/|.|年]\d{1,2}[-|/|.|月]\d{1,2})",
     "C%Y-%m-%d":"(\d{1,2}[-|/|.|年]\d{1,2})",
     "D%Y-%m-%d":"(\d{1,2}月\d{1,2}日)",
+    "A%m-%d,%Y":"(\d{1,2}[-|/|.|月]\d{1,2},\d{4})",
     "L%Y-%m-%d %H:%M:%S":"(\d{1,2}[:|时]\d{1,2}[:|分]\d{1,2})",
-    "a%Y-%m-%d %H:%M:%S":"(\d{1,2}年前)",
-    "b%Y-%m-%d %H:%M:%S":"(\d{1,2}个月前)",
-    "c%Y-%m-%d %H:%M:%S":"(\d{1,2}月前)",
-    "d%Y-%m-%d %H:%M:%S":"(\d{1,2}周前)",
-    "e%Y-%m-%d %H:%M:%S":"(\d{1,2}天内)",
-    "f%Y-%m-%d %H:%M:%S":"(\d{1,2}天前)",
-    "g%Y-%m-%d %H:%M:%S":"(\d{1,2}小时前)",
-    "h%Y-%m-%d %H:%M:%S":"(\d{1,2}分钟前)",
-    "i%Y-%m-%d %H:%M:%S":"(\d{1,2}秒钟前)",
-    "j%Y-%m-%d %H:%M:%S":"(\d{1,2}秒前)",
+    "a%Y-%m-%d %H:%M:%S":"(\d{1,2}\s*?年前)",
+    "b%Y-%m-%d %H:%M:%S":"(\d{1,2}\s*?个月前)",
+    "c%Y-%m-%d %H:%M:%S":"(\d{1,2}\s*?月前)",
+    "d%Y-%m-%d %H:%M:%S":"(\d{1,2}\s*?周前)",
+    "e%Y-%m-%d %H:%M:%S":"(\d{1,2}\s*?天内)",
+    "f%Y-%m-%d %H:%M:%S":"(\d{1,2}\s*?天前)",
+    "g%Y-%m-%d %H:%M:%S":"(\d{1,2}\s*?小[时|時]前)",
+    "h%Y-%m-%d %H:%M:%S":"(\d{1,2}\s*?分[钟|鐘]前)",
+    "i%Y-%m-%d %H:%M:%S":"(\d{1,2}\s*?秒[钟|鐘]前)",
+    "o%Y-%m-%d %H:%M:%S": "(\d{1,2}\s*?hour\s*?ago)",
+    "p%Y-%m-%d %H:%M:%S": "(\d{1,2}\s*?minutes\s*?ago)",
+    "j%Y-%m-%d %H:%M:%S":"(\d{1,2}\s*?秒前)",
     "a%Y-%m-%d":"([今|昨|前]天\s*?\d{1,2}[:|时]\d{1,2}[:|分]\d{1,2})",
     "b%Y-%m-%d":"([今|昨|前]天\s*?\d{1,2}[:|时]\d{1,2}分)",
     "c%Y-%m-%d":"([今|昨|前]天\s*?\d{1,2}[:|时]\d{1,2})",

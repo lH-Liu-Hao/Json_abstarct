@@ -56,15 +56,24 @@ test_text = {
     "creattime":"2012-03-02 10:10:10"
 }
 
-from . import Json_abstract
+import requests
 
-abstract = Json_abstract()
-
+from Json_abstarct import json_abstract
+#
 key_dict = {
-    # "tit_key_exp":"json_text['title']",
-    "con_key_exp":"json_text['content']",
-    "time_key_exp":"json_text['creattime']"
+    "tit_key_exp":"json_text['data']['title']",
+    "con_key_exp":"json_text['data']['content']",
+    "time_key_exp":"json_text['data']['time']"
+}
+# url = 'http://credit.yinchuan.gov.cn/yccredit/ck/queryHtmlByIds?id=17556&satae=1&menuId=92&pmenuId=84'
+url = 'http://www.zhwhg.com/api/article/read?id=1099'
+
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36',
 }
 
-content = abstract.all_abstract(test_text,key_exp_dict=key_dict)
-print(content)
+response = requests.get(url, headers=headers)
+
+
+result = json_abstract.all_abstract(response.json(),key_exp_dict=key_dict)
+print(result)
